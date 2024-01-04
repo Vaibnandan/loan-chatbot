@@ -1,0 +1,22 @@
+/* thankyou.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-top: 50px;
+}
+
+p {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* You can add additional styling based on your design preferences */

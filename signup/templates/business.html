@@ -1,0 +1,72 @@
+<!-- business.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Questionnaire</title>
+    <link rel="stylesheet" href="static/business.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Loan Questionnaire</h1>
+        <p>Hey, we need to ask some questions...</p>
+        <form action="/thankyou" method="get">
+            <label for="employment">Are you Salaried or Self Employed?</label>
+            <select id="employment" name="employment">
+                <option value="salaried">Salaried</option>
+                <option value="self-employed">Self Employed</option>
+            </select>
+
+            <label>How Much Amount you need?</label>
+            <label><input type="radio" name="loan-amount" value="2-10"> 2-10 Lakhs</label>
+            <label><input type="radio" name="loan-amount" value="10-50"> 10-50 Lakhs</label>
+            <label><input type="radio" name="loan-amount" value="50-100"> 50 Lacs - 1 Cr</label>
+            <label><input type="radio" name="loan-amount" value="above-100"> Above 1 Cr</label>
+
+            <label for="credit-report">Do you have a credit report?</label>
+            <label><input type="radio" name="credit-report" value="yes"> Yes</label>
+            <label><input type="radio" name="credit-report" value="no"> No</label>
+            <p>If no, you can get a free credit score <a href="https://example.com" target="_blank">here</a>.</p>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from submitting normally
+
+            // Fetch signup details
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var mobile = document.getElementById('mobile').value;
+
+            // Construct the data object
+            var formData = new FormData();
+            formData.append('username', username);
+            formData.append('password', password);
+            formData.append('mobile', mobile);
+            formData.append('collateral', collateral);
+            formData.append('loan_amount', loanAmount);
+            formData.append('credit_report', creditReport);
+
+            // Send a POST request to your FastAPI endpoint
+            fetch('/signup', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Handle the response, you can optionally redirect to another page
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+    </script>
+</body>
+</html>

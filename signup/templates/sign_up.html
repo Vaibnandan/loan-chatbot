@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="static/sign_up.css">
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form id="signupForm" action="#" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <span class="tooltip" id="usernameTooltip">Enter your desired username</span>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <span class="tooltip" id="passwordTooltip">Choose a strong password</span>
+        <br>
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" name="mobile" id="mobile" pattern="[0-9]{10}" required>
+        <span class="tooltip" id="mobileTooltip">Enter a valid 10-digit mobile number</span>
+        <br>
+        <button type="submit">Apply for Loan</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to show tooltip
+            function showTooltip(elementId) {
+                var tooltip = document.getElementById(elementId + 'Tooltip');
+                tooltip.style.visibility = 'visible';
+            }
+
+            // Function to hide tooltip
+            function hideTooltip(elementId) {
+                var tooltip = document.getElementById(elementId + 'Tooltip');
+                tooltip.style.visibility = 'hidden';
+            }
+
+            // Event listeners for showing and hiding tooltips
+            document.getElementById('username').addEventListener('focus', function() {
+                showTooltip('username');
+            });
+            document.getElementById('username').addEventListener('blur', function() {
+                hideTooltip('username');
+            });
+
+            document.getElementById('password').addEventListener('focus', function() {
+                showTooltip('password');
+            });
+            document.getElementById('password').addEventListener('blur', function() {
+                hideTooltip('password');
+            });
+
+            document.getElementById('mobile').addEventListener('focus', function() {
+                showTooltip('mobile');
+            });
+            document.getElementById('mobile').addEventListener('blur', function() {
+                hideTooltip('mobile');
+            });
+
+            document.getElementById('signupForm').addEventListener('submit', function(event) {
+                event.preventDefault();  // Prevent the form from submitting normally
+
+                // Fetch signup details
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                var mobile = document.getElementById('mobile').value;
+
+
+                var formData = new FormData();
+                formData.append('username', username);
+                formData.append('password', password);
+                formData.append('mobile', mobile);
+
+                
+                // Send a POST request to your FastAPI endpoint
+                fetch('/signup', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    // Handle the response, you can optionally redirect to another page
+                    console.log(data);
+                    window.location.href = '/';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                // Optionally, you can redirect to a "Thank You" page
+            });
+        });
+    });
+    </script>
+</body>
+</html>
